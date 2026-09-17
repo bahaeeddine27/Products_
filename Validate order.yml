@@ -1,0 +1,36 @@
+info:
+  name: Validate order
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{url}}orders"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Check if code status is 201", function(){
+          expect(res.getStatus()).equals(201);
+        })
+        let res_body = res.getBody();
+        test("Check if status is 'en_attente'", function(){
+          expect(res_body.order.status).equals("en_attente");
+        })
+
+        test("Check if items = 2", function(){
+          expect(res_body.order.items.length).equals(2);
+        })
+
+        let id_order = res.getBody().order.id;
+
+        bru.setCollectionVar("id_order", id_order)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,51 @@
+info:
+  name: Register
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{url}}register"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "{{$randomFullName}}",
+        "email": "{{$randomEmail}}",
+        "password": "{{$randomPassword}}",
+        "role": "user"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const email = res.body.user.email;
+        const password =  req.body.password;
+        let body_request = req.getBody()
+        let body_response = res.getBody()
+
+        bru.setCollectionVar("email", email);
+        bru.setCollectionVar("password", password);
+
+        test("Check if code status is 201", function(){
+          expect(res.getStatus()).equals(201);
+        })
+        test("Check if req=res", function(){
+          //get request body
+          let body_request = req.getBody()
+          //get response body
+          let body_response = res.getBody()
+          //check if body response = body request
+          expect(body_request.name).equals(body_response.user.name)
+          expect(body_request.email).equals(body_response.user.email)
+          expect(body_request.role).equals(body_response.user.role)
+        })
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

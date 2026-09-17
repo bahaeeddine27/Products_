@@ -1,0 +1,47 @@
+info:
+  name: Select Two Random Products
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{url}}products"
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Check if code status is 200", function () {
+            expect(res.getStatus()).equals(200);
+        });
+
+        let products = res.getBody().products;
+
+        let index1 = Math.floor(Math.random() * products.length);
+        console.log("Product 1 :", index1);
+        while(products[index1].stock <= 4){
+          index1 = Math.floor(Math.random() * products.length);
+        }
+
+        let index2 = Math.floor(Math.random() * products.length);
+        console.log("Product 2 :", index2);
+
+        while ((index1 == index2) || (products[index2].stock < 4) ){
+            index2 = Math.floor(Math.random() * products.length);
+            console.log("Product 2 :", index2);
+        }
+        bru.setCollectionVar("id1", products[index1].id);
+        bru.setCollectionVar("id2", products[index2].id);
+        bru.setCollectionVar("Stock1", products[index1].stock)
+        bru.setCollectionVar("Stock2", products[index2].stock)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,35 @@
+info:
+  name: Pay Order
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: "{{url}}orders/{{id_order}}/pay"
+  body:
+    type: json
+    data: |-
+      {
+        "payment_method": "pm_card_visa"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Check if code status is 200", function(){
+          expect(res.getStatus()).equals(200);
+        })
+
+        let body_res = res.getBody();
+        test("Check if status = payee", function(){
+          expect("payee").equals(body_res.order_status);
+        })
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

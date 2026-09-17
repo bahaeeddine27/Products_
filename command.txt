@@ -1,0 +1,7 @@
+//lancer les tests avec un environnement
+bru run --env e2e
+//créer un dossier allure-results
+//génerer le rapport allure
+bru run --env e2e --reporter-junit allure-results/Test-results.xml
+//generer le rapport allure 
+allure serve

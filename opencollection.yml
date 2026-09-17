@@ -1,0 +1,61 @@
+opencollection: 1.0.0
+
+info:
+  name: Products_
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: bearer
+    token: "{{token}}"
+  variables:
+    - name: email
+      value: Ona9@yahoo.com
+    - name: password
+      value: 0ZpRrT7dDVmi0Z6
+    - name: token
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1c2VyLWFwaSIsInN1YiI6MjI1OCwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODk2NDAxNzksImV4cCI6MTc4OTY0Mzc3OSwianRpIjoiYWI2MGRmMjg3MmU2ZjA2ZTlhYTUwNjZiN2I0YzY1MDgifQ.Eu6Jcp7Z9N6fw_w31x-miAI5HF1ybHDAkfSZCI0Vy_M
+    - name: id1
+      value:
+        type: number
+        data: "329"
+    - name: id2
+      value:
+        type: number
+        data: "604"
+    - name: Stock1
+      value:
+        type: number
+        data: "546"
+    - name: Stock2
+      value:
+        type: number
+        data: "83"
+    - name: Random_qte_1
+      value:
+        type: number
+        data: "119"
+    - name: Random_qte_2
+      value:
+        type: number
+        data: "50"
+    - name: id_order
+      value:
+        type: number
+        data: "376"
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

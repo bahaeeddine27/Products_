@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="Register" file="Register.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-17T10:12:35.897" hostname="bahaeeddine27" time="0.454">
+    <testcase name="Check if code status is 201" status="pass" classname="Register" time="0.227"/>
+    <testcase name="Check if req=res" status="pass" classname="Register" time="0.227"/>
+  </testsuite>
+  <testsuite name="Login" file="Login.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-17T10:12:35.941" hostname="bahaeeddine27" time="0.290">
+    <testcase name="Check if code status is 200" status="pass" classname="Login" time="0.290"/>
+  </testsuite>
+  <testsuite name="Select Two Random Products" file="Select Two Random Products.yml" errors="0" failures="0" skipped="0" tests="1" timestamp="2026-09-17T10:12:35.941" hostname="bahaeeddine27" time="0.335">
+    <testcase name="Check if code status is 200" status="pass" classname="Select Two Random Products" time="0.335"/>
+  </testsuite>
+  <testsuite name="Add the first product in cart" file="Add the first product in cart.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-17T10:12:35.941" hostname="bahaeeddine27" time="0.330">
+    <testcase name="Check if code status is 201" status="pass" classname="Add the first product in cart" time="0.165"/>
+    <testcase name="Check success message" status="pass" classname="Add the first product in cart" time="0.165"/>
+  </testsuite>
+  <testsuite name="Add the second product in cart" file="Add the second product in cart.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-17T10:12:35.941" hostname="bahaeeddine27" time="0.344">
+    <testcase name="Check if code status is 201" status="pass" classname="Add the second product in cart" time="0.172"/>
+    <testcase name="Check success message" status="pass" classname="Add the second product in cart" time="0.172"/>
+  </testsuite>
+  <testsuite name="Validate order" file="Validate order.yml" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-09-17T10:12:35.941" hostname="bahaeeddine27" time="0.213">
+    <testcase name="Check if code status is 201" status="pass" classname="Validate order" time="0.071"/>
+    <testcase name="Check if status is 'en_attente'" status="pass" classname="Validate order" time="0.071"/>
+    <testcase name="Check if items = 2" status="pass" classname="Validate order" time="0.071"/>
+  </testsuite>
+  <testsuite name="Pay Order" file="Pay Order.yml" errors="0" failures="0" skipped="0" tests="2" timestamp="2026-09-17T10:12:35.941" hostname="bahaeeddine27" time="0.971">
+    <testcase name="Check if code status is 200" status="pass" classname="Pay Order" time="0.486"/>
+    <testcase name="Check if status = payee" status="pass" classname="Pay Order" time="0.486"/>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,40 @@
+info:
+  name: Add the second product in cart
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{url}}cart"
+  body:
+    type: json
+    data: |-
+      {
+        "product_id": "{{id2}}",
+        "quantity": "{{Random_qte_2}}"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        let random_qte = Math.floor(Math.random() * bru.getCollectionVar("Stock2")) + 1;
+
+        bru.setCollectionVar("Random_qte_2", random_qte);
+    - type: after-response
+      code: |-
+        test("Check if code status is 201", function(){
+          expect(res.getStatus()).equals(201);
+        })
+        test("Check success message", function(){
+          let res_body = res.getBody();
+          expect("Produit ajouté au panier.").equals(res_body.message);
+        })
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
