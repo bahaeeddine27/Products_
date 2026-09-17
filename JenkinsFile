@@ -1,23 +1,21 @@
 pipeline {
-
     agent any
 
-    stages {
+      stages{
 
-        stage('global stage') {
-
-            agent {
-                docker {
+        stage('global stage'){
+            
+            agent{
+                docker{
                     image 'usebruno/cli:latest'
                     args '-u root --entrypoint='
                 }
             }
-
-            stages {
-
-                stage('Clean Allure Results') {
-
-                    steps {
+            
+            stages{
+                stage('clean allure results'){
+                    
+                    steps{
                         sh '''
                             echo "Suppression du cache Allure..."
                             rm -rf allure-results
@@ -26,43 +24,23 @@ pipeline {
                         '''
                     }
                 }
-
-                stage('Run Bruno Tests') {
-
+        
+                stage('run tests'){
                     steps {
-                        sh '''
-                            echo "Lancement des tests Bruno..."
-
-                            bru run \
-                              --env-file environments/preprod.yml \
-                              --reporter-junit allure-results/Test-results.xml
-
-                            echo "Tests Bruno terminés."
-                        '''
-                    }
+                        sh 'bru run --env-file environments/preprod.yml --reporter-junit allure-results/Test-results.xml'}
                 }
             }
         }
     }
 
+
     post {
-
         always {
-
-            echo 'Archivage des résultats Allure...'
-
-            archiveArtifacts(
-                artifacts: 'allure-results/*',
-                allowEmptyArchive: true
-            )
-
-            allure(
-                includeProperties: false,
-                jdk: '',
-                results: [
-                    [path: 'allure-results/']
-                ]
-            )
+            archiveArtifacts artifacts: 'allure-results/*', 
+            allowEmptyArchive: true
+            allure includeProperties: false,
+                   jdk: '',
+                   results: [[path: 'allure-results/']]
         }
     }
-}
+} 
